@@ -234,180 +234,98 @@ st.markdown("""
     ::-webkit-scrollbar-thumb:hover {
         background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
     }
-    
-    /* Loading animation */
-    .loading-spinner {
-        width: 50px;
-        height: 50px;
-        border: 3px solid rgba(102, 126, 234, 0.3);
-        border-top: 3px solid #667eea;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 20px auto;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
 </style>
 """, unsafe_allow_html=True)
 
-# Get API key from Streamlit secrets or config file
-try:
-    # Try to get from Streamlit secrets first
-    api_key = st.secrets["OPENAI_API_KEY"]
-except:
-    try:
-        # Fallback to config file
-        import config
-        api_key = config.api_key
-    except:
-        # If neither works, show error
-        st.error("⚠️ API Key not found! Please add OPENAI_API_KEY to Streamlit secrets or create a config.py file with api_key variable.")
-        st.stop()
+# Initialize session states
+if 'initialized' not in st.session_state:
+    st.session_state.initialized = False
+    st.session_state.messages = []
+    st.session_state.memory = None
+    st.session_state.chain = None
+    st.session_state.vectorstore = None
+    st.session_state.api_key_valid = False
 
-# Set API key
-openai.api_key = api_key
-os.environ["OPENAI_API_KEY"] = api_key
+# Header
+st.markdown("""
+<div class="header-container">
+    <div class="header-title">🤖 TEQ3 AI Assistant</div>
+    <div class="header-subtitle">Your Gateway to AI & Data Analytics Careers | 100% Job Guarantee 🚀</div>
+</div>
+""", unsafe_allow_html=True)
 
-# Initialize chatbot function with caching
-@st.cache_resource
-def initialize_chatbot():
-    """Initialize the chatbot with all necessary components"""
-    with st.spinner("🚀 Initializing TEQ3 AI Assistant..."):
-        try:
-            # Load web content with better error handling
-            urls = [
-                "https://www.teq3.ai/",
-                "https://www.teq3.ai/about-us",
-                "https://www.teq3.ai/courses",
-                "https://www.teq3.ai/programs",
-                "https://www.teq3.ai/data-analytics",
-                "https://www.teq3.ai/artificial-intelligence",
-                "https://www.teq3.ai/contact",
-                "https://www.teq3.ai/services"
-            ]
-            
-            all_documents = []
-            failed_urls = []
-            
-            for url in urls:
+# Sidebar configuration
+with st.sidebar:
+    st.markdown("## ⚙️ Configuration")
+    
+    # API Key input
+    api_key = st.text_input(
+        "OpenAI API Key",
+        type="password",
+        placeholder="sk-...",
+        help="Enter your OpenAI API key to start chatting"
+    )
+    
+    if api_key:
+        # Initialize button
+        if st.button("🚀 Initialize Chatbot", use_container_width=True):
+            with st.spinner("🔄 Initializing TEQ3 AI Assistant..."):
                 try:
-                    loader = WebBaseLoader(url)
-                    documents = loader.load()
-                    if documents:  # Only add if documents were loaded
-                        all_documents.extend(documents)
-                except Exception as e:
-                    failed_urls.append(url)
-                    continue
-            
-            # If no documents were loaded from web, create fallback content
-            if not all_documents:
-                from langchain.schema import Document
-                fallback_content = [
-                    Document(page_content="""
-                    TEQ3.AI is a leading AI and Data Analytics training institute offering comprehensive programs 
-                    designed to help professionals transition into tech careers. We specialize in Artificial Intelligence 
-                    and Data Analytics courses with a unique 100% Job Guarantee program.
+                    # Set API key
+                    openai.api_key = api_key
+                    os.environ["OPENAI_API_KEY"] = api_key
                     
-                    Our courses include:
-                    - Artificial Intelligence Program: Learn machine learning, deep learning, NLP, and computer vision
-                    - Data Analytics Program: Master data analysis, visualization, SQL, Python, and business intelligence
-                    - Both programs include hands-on projects, industry mentorship, and career support
-                    
-                    Key Features:
-                    - 100% Job Guarantee or full refund
-                    - Industry-aligned curriculum
-                    - Live online classes with expert instructors
-                    - Practical projects with real-world applications
-                    - Career counseling and interview preparation
-                    - Flexible batch timings
-                    - Lifetime access to course materials
-                    
-                    Contact Information:
-                    - Website: teq3.ai
-                    - Email: support@teq3.ai for technical support
-                    - Email: careers@teq3.ai for career guidance
-                    - Email: hello@teq3.ai for general inquiries
-                    """, metadata={"source": "fallback", "title": "TEQ3 Overview"}),
-                    
-                    Document(page_content="""
-                    TEQ3 AI Program Details:
-                    Duration: 6 months comprehensive program
-                    
-                    Curriculum includes:
-                    - Python Programming fundamentals
-                    - Machine Learning algorithms and techniques
-                    - Deep Learning with TensorFlow and PyTorch
-                    - Natural Language Processing (NLP)
-                    - Computer Vision applications
-                    - Reinforcement Learning basics
-                    - MLOps and model deployment
-                    - Cloud AI services (AWS, Azure, GCP)
-                    - Generative AI and Large Language Models
-                    - Industry capstone projects
-                    
-                    Career Opportunities:
-                    - AI Engineer
-                    - Machine Learning Engineer
-                    - Data Scientist
-                    - AI Research Scientist
-                    - Computer Vision Engineer
-                    - NLP Engineer
-                    """, metadata={"source": "fallback", "title": "AI Program"}),
-                    
-                    Document(page_content="""
-                    TEQ3 Data Analytics Program Details:
-                    Duration: 4 months intensive program
-                    
-                    Curriculum includes:
-                    - Excel and Advanced Excel for data analysis
-                    - SQL and database management
-                    - Python for Data Analysis (Pandas, NumPy)
-                    - Data Visualization (Tableau, Power BI)
-                    - Statistical Analysis and Hypothesis Testing
-                    - Business Intelligence and Reporting
-                    - Big Data fundamentals
-                    - Data Storytelling and Presentation
-                    - Real-world business case studies
-                    
-                    Career Opportunities:
-                    - Data Analyst
-                    - Business Analyst
-                    - Business Intelligence Analyst
-                    - Data Visualization Expert
-                    - Marketing Analyst
-                    - Operations Analyst
-                    """, metadata={"source": "fallback", "title": "Data Analytics Program"})
-                ]
-                all_documents = fallback_content
-            
-            # Split documents
-            text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000,
-                chunk_overlap=200
-            )
-            texts = text_splitter.split_documents(all_documents)
-            
-            # Check if we have texts to work with
-            if not texts:
-                raise ValueError("No documents available to process")
-            
-            # Create embeddings and vector store
-            embeddings = OpenAIEmbeddings(openai_api_key=api_key)
-            vectorstore = FAISS.from_documents(texts, embeddings)
-            
-            # Initialize LLM
-            llm = OpenAI(
-                model_name="gpt-3.5-turbo-instruct",
-                temperature=0.8,
-                max_tokens=300,
-                openai_api_key=api_key
-            )
-            
-            # Create prompt template
-            custom_prompt = """
+                    # Initialize the chatbot
+                    @st.cache_resource
+                    def initialize_chatbot(api_key):
+                        # Load web content
+                        urls = [
+                            "https://www.teq3.ai/",
+                            "https://www.teq3.ai/about-us",
+                            "https://www.teq3.ai/courses",
+                            "https://www.teq3.ai/programs",
+                            "https://www.teq3.ai/data-analytics",
+                            "https://www.teq3.ai/artificial-intelligence",
+                            "https://www.teq3.ai/contact",
+                            "https://www.teq3.ai/services"
+                        ]
+                        
+                        all_documents = []
+                        for url in urls:
+                            try:
+                                loader = WebBaseLoader(url)
+                                documents = loader.load()
+                                all_documents.extend(documents)
+                            except:
+                                pass
+                        
+                        # Split documents
+                        text_splitter = RecursiveCharacterTextSplitter(
+                            chunk_size=1000,
+                            chunk_overlap=200
+                        )
+                        texts = text_splitter.split_documents(all_documents)
+                        
+                        # Create embeddings and vector store
+                        embeddings = OpenAIEmbeddings(openai_api_key=api_key)
+                        vectorstore = FAISS.from_documents(texts, embeddings)
+                        
+                        # Initialize LLM
+                        llm = OpenAI(
+                            model_name="gpt-3.5-turbo-instruct",
+                            temperature=0.8,
+                            max_tokens=300,
+                            openai_api_key=api_key
+                        )
+                        
+                        # Set up memory
+                        memory = ConversationBufferMemory(
+                            memory_key="chat_history",
+                            return_messages=True
+                        )
+                        
+                        # Create prompt template
+                        custom_prompt = """
 You are TEQ3's AI Assistant - a friendly, helpful, and intuitive chatbot that acts like ChatGPT but specializes in TEQ3's AI and Data Analytics training programs.
 
 PERSONALITY TRAITS:
@@ -441,117 +359,52 @@ User: {question}
 
 TEQ3 AI Assistant:
 """
-            
-            # Create chain without memory (we'll manage it separately in session state)
-            chain = ConversationalRetrievalChain.from_llm(
-                llm=llm,
-                retriever=vectorstore.as_retriever(search_kwargs={"k": 4}),
-                memory=None,  # We'll manage memory separately
-                combine_docs_chain_kwargs={
-                    "prompt": PromptTemplate(
-                        input_variables=["context", "chat_history", "question"],
-                        template=custom_prompt
-                    )
-                }
-            )
-            
-            return chain, vectorstore
-            
-        except Exception as e:
-            st.error(f"Error during initialization: {str(e)}")
-            st.info("Attempting to run with limited functionality...")
-            
-            # Try to create a simple chain without web content
-            try:
-                from langchain.schema import Document
-                
-                # Create minimal fallback documents
-                fallback_docs = [
-                    Document(page_content="TEQ3 offers AI and Data Analytics courses with 100% job guarantee.", 
-                            metadata={"source": "fallback"})
-                ]
-                
-                # Create simple text splitter
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-                texts = text_splitter.split_documents(fallback_docs)
-                
-                # Create embeddings and vector store with fallback
-                embeddings = OpenAIEmbeddings(openai_api_key=api_key)
-                vectorstore = FAISS.from_documents(texts, embeddings)
-                
-                # Initialize LLM
-                llm = OpenAI(
-                    model_name="gpt-3.5-turbo-instruct",
-                    temperature=0.8,
-                    max_tokens=300,
-                    openai_api_key=api_key
-                )
-                
-                # Create simplified chain
-                chain = ConversationalRetrievalChain.from_llm(
-                    llm=llm,
-                    retriever=vectorstore.as_retriever(search_kwargs={"k": 1}),
-                    memory=None
-                )
-                
-                return chain, vectorstore
-                
-            except Exception as fallback_error:
-                st.error(f"Critical error: {str(fallback_error)}")
-                return None, None
-
-# Initialize session states
-if 'messages' not in st.session_state:
-    st.session_state.messages = []
-    # Add welcome message
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": "Hi there! 👋 Welcome to TEQ3! I'm your AI Assistant, and I'm super excited to help you explore our amazing AI & Data Analytics programs! 🚀\n\nWe offer:\n• 🤖 Artificial Intelligence courses\n• 📊 Data Analytics programs\n• 🎯 100% Job Guarantee\n• 💼 Career transition support\n\nWhat brings you here today? Are you looking to start a career in AI or Data Science? I'm here to help! 😊"
-    })
-
-if 'memory' not in st.session_state:
-    st.session_state.memory = ConversationBufferMemory(
-        memory_key="chat_history",
-        return_messages=True
-    )
-
-# Auto-initialize chatbot on first load with better error handling
-if 'chain' not in st.session_state:
-    try:
-        chain, vectorstore = initialize_chatbot()
-        if chain and vectorstore:
-            st.session_state.chain = chain
-            st.session_state.vectorstore = vectorstore
-            st.session_state.initialized = True
-        else:
-            st.error("Failed to initialize chatbot. Please check your API key and internet connection.")
-            st.session_state.initialized = False
-    except Exception as e:
-        st.error(f"Initialization error: {str(e)}")
-        st.info("Please check your OpenAI API key and internet connection.")
-        st.session_state.initialized = False
-else:
-    st.session_state.initialized = True
-
-# Header
-st.markdown("""
-<div class="header-container">
-    <div class="header-title">🤖 TEQ3 AI Assistant</div>
-    <div class="header-subtitle">Your Gateway to AI & Data Analytics Careers | 100% Job Guarantee 🚀</div>
-</div>
-""", unsafe_allow_html=True)
-
-# Sidebar
-with st.sidebar:
-    st.markdown("## 🎯 TEQ3 AI Assistant")
+                        
+                        # Create chain
+                        chain = ConversationalRetrievalChain.from_llm(
+                            llm=llm,
+                            retriever=vectorstore.as_retriever(search_kwargs={"k": 4}),
+                            memory=memory,
+                            combine_docs_chain_kwargs={
+                                "prompt": PromptTemplate(
+                                    input_variables=["context", "chat_history", "question"],
+                                    template=custom_prompt
+                                )
+                            }
+                        )
+                        
+                        return chain, memory, vectorstore
+                    
+                    chain, memory, vectorstore = initialize_chatbot(api_key)
+                    st.session_state.chain = chain
+                    st.session_state.memory = memory
+                    st.session_state.vectorstore = vectorstore
+                    st.session_state.initialized = True
+                    st.session_state.api_key_valid = True
+                    
+                    # Add welcome message
+                    if not st.session_state.messages:
+                        st.session_state.messages.append({
+                            "role": "assistant",
+                            "content": "Hi there! 👋 Welcome to TEQ3! I'm your AI Assistant, and I'm super excited to help you explore our amazing AI & Data Analytics programs! 🚀\n\nWe offer:\n• 🤖 Artificial Intelligence courses\n• 📊 Data Analytics programs\n• 🎯 100% Job Guarantee\n• 💼 Career transition support\n\nWhat brings you here today? Are you looking to start a career in AI or Data Science? I'm here to help! 😊"
+                        })
+                    
+                    st.success("✅ Chatbot initialized successfully!")
+                    time.sleep(1)
+                    st.rerun()
+                    
+                except Exception as e:
+                    st.error(f"❌ Error initializing chatbot: {str(e)}")
+                    st.session_state.api_key_valid = False
     
     # Display status
+    st.markdown("---")
     st.markdown("### 📊 Status")
     if st.session_state.initialized:
         st.markdown('<span class="status-online"></span> **Online**', unsafe_allow_html=True)
         st.success("✅ Ready to chat!")
     else:
-        st.warning("⚠️ Initializing...")
+        st.warning("⚠️ Please enter API key and initialize")
     
     # Quick actions
     st.markdown("---")
@@ -583,24 +436,6 @@ with st.sidebar:
                 st.session_state.messages.append({"role": "user", "content": "How can I contact TEQ3?"})
                 st.rerun()
     
-    # Sample questions
-    st.markdown("---")
-    st.markdown("### 💡 Try Asking:")
-    sample_questions = [
-        "What AI courses do you offer?",
-        "How does the job guarantee work?",
-        "What's the duration of programs?",
-        "Do you offer online classes?",
-        "What are the career prospects?",
-        "Tell me about data analytics course"
-    ]
-    
-    for question in sample_questions:
-        if st.button(f"→ {question}", key=f"sample_{question}", use_container_width=True):
-            if st.session_state.initialized:
-                st.session_state.messages.append({"role": "user", "content": question})
-                st.rerun()
-    
     # Info section
     st.markdown("---")
     st.markdown("### ℹ️ Information")
@@ -617,7 +452,8 @@ with st.sidebar:
     st.markdown("---")
     if st.button("🗑️ Clear Chat", use_container_width=True):
         st.session_state.messages = []
-        st.session_state.memory.clear()
+        if st.session_state.memory:
+            st.session_state.memory.clear()
         st.session_state.messages.append({
             "role": "assistant",
             "content": "Chat cleared! 🔄 How can I help you today? 😊"
@@ -632,26 +468,22 @@ def categorize_query(query):
     technical_keywords = [
         "payment", "purchase", "buying", "can't buy", "payment failed",
         "credit card", "billing", "refund", "login", "password", "access",
-        "platform", "website", "technical", "error", "bug", "not working",
-        "loading", "broken", "system", "account", "sign in", "log in"
+        "platform", "website", "technical", "error", "bug", "not working"
     ]
     
     complaint_keywords = [
         "complaint", "complain", "issue", "problem", "concern", "worried",
-        "dissatisfied", "disappointed", "frustrated", "unhappy", "feedback",
-        "poor", "bad", "terrible", "awful", "wrong", "mistake"
+        "dissatisfied", "disappointed", "frustrated", "unhappy"
     ]
     
     career_keywords = [
         "which course", "what should i", "career change", "career transition",
-        "job prospects", "salary", "right for me", "help me choose", "confused",
-        "not sure", "advice", "recommend", "best option", "career path"
+        "job prospects", "salary", "right for me", "help me choose"
     ]
     
     consultant_keywords = [
         "yes", "sure", "interested", "consultant", "career advisor",
-        "speak to someone", "human", "person", "advisor", "guidance",
-        "help me decide", "connect me", "arrange", "schedule", "talk to"
+        "speak to someone", "human", "person", "advisor"
     ]
     
     if any(keyword in query_lower for keyword in technical_keywords):
@@ -730,9 +562,9 @@ if st.session_state.initialized:
     # Display chat messages
     for message in st.session_state.messages:
         if message["role"] == "user":
-            st.markdown(f'<div class="user-message">{message["content"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="user-message">You: {message["content"]}</div>', unsafe_allow_html=True)
         else:
-            st.markdown(f'<div class="assistant-message">{message["content"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="assistant-message">TEQ3 AI: {message["content"]}</div>', unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
     
@@ -750,7 +582,7 @@ if st.session_state.initialized:
             send_button = st.button("Send 📤", use_container_width=True)
     
     # Process user input
-    if user_input and send_button:
+    if (user_input and send_button) or (user_input and st.session_state.get('enter_pressed')):
         # Add user message
         st.session_state.messages.append({"role": "user", "content": user_input})
         
@@ -769,15 +601,7 @@ if st.session_state.initialized:
             else:
                 # Use the LLM chain for general queries
                 try:
-                    # Create a new chain with current memory for this request
-                    chain_with_memory = ConversationalRetrievalChain.from_llm(
-                        llm=st.session_state.chain.llm,
-                        retriever=st.session_state.chain.retriever,
-                        memory=st.session_state.memory,
-                        combine_docs_chain_kwargs=st.session_state.chain.combine_docs_chain_kwargs
-                    )
-                    
-                    result = chain_with_memory({"question": user_input})
+                    result = st.session_state.chain({"question": user_input})
                     response = result["answer"]
                     
                     # Add smart follow-ups for career guidance
@@ -806,16 +630,14 @@ Is there anything else I can help you with? 😊"""
             st.rerun()
 
 else:
-    # Show loading state
+    # Show initialization prompt
     st.markdown("""
     <div class="chat-container" style="text-align: center; padding: 50px;">
-        <div class="loading-spinner"></div>
-        <h2>🚀 Initializing TEQ3 AI Assistant...</h2>
-        <p>Please wait while we set everything up for you!</p>
+        <h2>🔐 Please Initialize the Chatbot</h2>
+        <p>Enter your OpenAI API key in the sidebar and click "Initialize Chatbot" to start chatting!</p>
+        <p>Don't have an API key? Get one from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI</a></p>
     </div>
     """, unsafe_allow_html=True)
-    time.sleep(2)
-    st.rerun()
 
 # Footer
 st.markdown("""
