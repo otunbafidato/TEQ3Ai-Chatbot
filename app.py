@@ -19,27 +19,26 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for beautiful styling
+# Custom CSS for clean, professional styling
 st.markdown("""
 <style>
     /* Main container styling */
     .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-color: #f8f9fa;
     }
     
     /* Chat container */
     .stChatMessage {
-        background-color: rgba(255, 255, 255, 0.95);
-        border-radius: 15px;
-        padding: 15px;
-        margin: 10px 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
+        background-color: white;
+        border-radius: 12px;
+        padding: 16px;
+        margin: 8px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     }
     
     /* User message */
     .stChatMessage[data-testid="user-message"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-color: #667eea;
         color: white;
     }
     
@@ -51,68 +50,76 @@ st.markdown("""
     
     /* Sidebar styling */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
-        color: white;
-    }
-    
-    [data-testid="stSidebar"] .element-container {
-        color: white;
+        background-color: #ffffff;
+        border-right: 1px solid #e0e0e0;
     }
     
     /* Button styling */
     .stButton>button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-color: #667eea;
         color: white;
         border: none;
-        border-radius: 25px;
-        padding: 10px 30px;
-        font-weight: bold;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-weight: 600;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
     }
     
     .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        background-color: #5568d3;
+        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
     }
     
     /* Input field styling */
-    .stTextInput>div>div>input {
-        border-radius: 25px;
-        border: 2px solid #667eea;
-        padding: 10px 20px;
-        background-color: rgba(255, 255, 255, 0.9);
+    .stChatInputContainer {
+        border-top: 1px solid #e0e0e0;
+        padding-top: 16px;
     }
     
     /* Header styling */
-    h1, h2, h3 {
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    h1 {
+        color: #1a202c;
+        font-weight: 700;
+    }
+    
+    h2, h3 {
+        color: #2d3748;
     }
     
     /* Info boxes */
-    .info-box {
-        background: rgba(255, 255, 255, 0.95);
+    .info-card {
+        background: white;
         padding: 20px;
-        border-radius: 15px;
+        border-radius: 12px;
         margin: 10px 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #667eea;
     }
     
     /* Metric cards */
     [data-testid="metric-container"] {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background: white;
+        padding: 16px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     }
     
     /* Success/info messages */
-    .stSuccess, .stInfo {
-        background-color: rgba(255, 255, 255, 0.95);
-        border-radius: 10px;
-        backdrop-filter: blur(10px);
+    .stSuccess {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
     }
+    
+    .stInfo {
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+    }
+    
+    /* Remove streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -257,8 +264,8 @@ def initialize_chatbot(api_key):
                 loader = WebBaseLoader(url)
                 documents = loader.load()
                 all_documents.extend(documents)
-            except Exception as e:
-                st.warning(f"Could not load {url}: {str(e)}")
+            except Exception:
+                pass
         
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         texts = text_splitter.split_documents(all_documents)
@@ -319,34 +326,32 @@ TEQ3 AI Assistant:
     except Exception as e:
         return None, str(e)
 
+# Auto-initialize on first load
+if not st.session_state.initialized:
+    # Try to get API key from secrets
+    try:
+        api_key = st.secrets["OPENAI_API_KEY"]
+        with st.spinner("🚀 Initializing your AI assistant..."):
+            chain, result = initialize_chatbot(api_key)
+            if chain:
+                st.session_state.chain = chain
+                st.session_state.initialized = True
+            else:
+                st.error(f"Failed to initialize: {result}")
+    except Exception as e:
+        st.error("⚠️ Please add your OPENAI_API_KEY to Streamlit secrets")
+        st.stop()
+
 # Sidebar
 with st.sidebar:
     st.markdown("## 🤖 TEQ3 AI Assistant")
     st.markdown("---")
     
-    # API Key input
-    st.markdown("### 🔑 Configuration")
-    api_key = st.text_input(
-        "OpenAI API Key",
-        type="password",
-        value=st.secrets.get("OPENAI_API_KEY", ""),
-        help="Enter your OpenAI API key or set it in Streamlit secrets"
-    )
-    
-    if st.button("🚀 Initialize Assistant", use_container_width=True):
-        if api_key:
-            with st.spinner("Initializing your AI assistant..."):
-                chain, result = initialize_chatbot(api_key)
-                if chain:
-                    st.session_state.chain = chain
-                    st.session_state.initialized = True
-                    st.success("✅ Assistant ready!")
-                    time.sleep(1)
-                    st.rerun()
-                else:
-                    st.error(f"❌ Initialization failed: {result}")
-        else:
-            st.error("Please enter your OpenAI API key")
+    # Status indicator
+    if st.session_state.initialized:
+        st.success("✅ Assistant Ready")
+    else:
+        st.warning("⏳ Initializing...")
     
     st.markdown("---")
     
@@ -355,9 +360,9 @@ with st.sidebar:
     st.info("""
     **Transform Your Career with AI!**
     
-    🤖 AI & Machine Learning
-    📊 Data Analytics
-    🎯 100% Job Guarantee
+    🤖 AI & Machine Learning  
+    📊 Data Analytics  
+    🎯 100% Job Guarantee  
     🌟 Industry Experts
     """)
     
@@ -382,94 +387,88 @@ with st.sidebar:
     with col1:
         st.metric("Messages", len(st.session_state.messages))
     with col2:
-        st.metric("Status", "🟢 Active" if st.session_state.initialized else "🔴 Inactive")
+        status = "🟢 Active" if st.session_state.initialized else "🔴 Inactive"
+        st.metric("Status", status)
 
 # Main content area
-st.markdown("# 🤖 Welcome to TEQ3 AI Assistant")
+st.markdown("# 🤖 TEQ3 AI Assistant")
 st.markdown("### Your Gateway to an AI-Powered Career! 🚀")
+st.markdown("---")
 
-if not st.session_state.initialized:
-    # Welcome screen
-    st.markdown("---")
+# Welcome message for new users
+if len(st.session_state.messages) == 0:
     col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("""
-        <div class="info-box">
-            <h3 style="color: #667eea;">🎓 World-Class Training</h3>
-            <p style="color: #2d3748;">Learn AI & Data Analytics from industry experts with hands-on projects</p>
+        <div style='background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #667eea;'>
+            <h3 style='color: #667eea; margin-bottom: 10px;'>🎓 World-Class Training</h3>
+            <p style='color: #2d3748; margin: 0;'>Learn AI & Data Analytics from industry experts with hands-on projects</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-        <div class="info-box">
-            <h3 style="color: #667eea;">💼 100% Job Guarantee</h3>
-            <p style="color: #2d3748;">We're committed to your success with our job placement guarantee</p>
+        <div style='background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #667eea;'>
+            <h3 style='color: #667eea; margin-bottom: 10px;'>💼 100% Job Guarantee</h3>
+            <p style='color: #2d3748; margin: 0;'>We're committed to your success with our job placement guarantee</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown("""
-        <div class="info-box">
-            <h3 style="color: #667eea;">🌟 Career Support</h3>
-            <p style="color: #2d3748;">Get personalized guidance from our expert career consultants</p>
+        <div style='background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 4px solid #667eea;'>
+            <h3 style='color: #667eea; margin-bottom: 10px;'>🌟 Career Support</h3>
+            <p style='color: #2d3748; margin: 0;'>Get personalized guidance from our expert career consultants</p>
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown("---")
-    st.info("👈 **Get Started:** Enter your OpenAI API key in the sidebar and click 'Initialize Assistant' to begin chatting!")
+    st.markdown("<br>", unsafe_allow_html=True)
+
+# Display chat messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"], avatar="🧑‍💻" if message["role"] == "user" else "🤖"):
+        st.markdown(message["content"])
+
+# Chat input
+if prompt := st.chat_input("Type your message here... Ask me anything about TEQ3! 💬"):
+    # Add user message
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user", avatar="🧑‍💻"):
+        st.markdown(prompt)
     
-else:
-    # Chat interface
-    st.markdown("---")
-    
-    # Display chat messages
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"], avatar="🧑‍💻" if message["role"] == "user" else "🤖"):
-            st.markdown(message["content"])
-    
-    # Chat input
-    if prompt := st.chat_input("Type your message here... Ask me anything about TEQ3! 💬"):
-        # Add user message
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user", avatar="🧑‍💻"):
-            st.markdown(prompt)
-        
-        # Generate response
-        with st.chat_message("assistant", avatar="🤖"):
-            with st.spinner("Thinking..."):
-                query_category = categorize_query(prompt)
-                
-                # Handle different query types
-                if query_category == "consultant_interest":
-                    response = handle_career_consultation()
-                elif query_category == "technical":
-                    response = handle_technical_support()
-                elif query_category == "complaint":
-                    response = handle_complaint()
-                else:
-                    try:
-                        response = st.session_state.chain({"question": prompt})["answer"]
-                        
-                        if query_category == "career_guidance":
-                            response += "\n\n" + suggest_career_consultation()
-                    except Exception as e:
-                        response = f"Oops! 😅 I encountered a hiccup: {str(e)}\n\n{handle_technical_support()}"
-                
-                st.markdown(response)
-                st.session_state.messages.append({"role": "assistant", "content": response})
+    # Generate response
+    with st.chat_message("assistant", avatar="🤖"):
+        with st.spinner("Thinking..."):
+            query_category = categorize_query(prompt)
+            
+            # Handle different query types
+            if query_category == "consultant_interest":
+                response = handle_career_consultation()
+            elif query_category == "technical":
+                response = handle_technical_support()
+            elif query_category == "complaint":
+                response = handle_complaint()
+            else:
+                try:
+                    response = st.session_state.chain({"question": prompt})["answer"]
+                    
+                    if query_category == "career_guidance":
+                        response += "\n\n" + suggest_career_consultation()
+                except Exception as e:
+                    response = f"Oops! 😅 I encountered a hiccup. Let me connect you with support:\n\n{handle_technical_support()}"
+            
+            st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
 
 # Footer
 st.markdown("---")
 st.markdown("""
-<div style='text-align: center; color: white; padding: 20px;'>
-    <p style='font-size: 14px;'>
-        Made with ❤️ by TEQ3 | Transforming Careers Through AI Education
-    </p>
-    <p style='font-size: 12px;'>
-        🌐 <a href='https://www.teq3.ai' style='color: white;'>Visit our website</a> | 
-        📧 <a href='mailto:hello@teq3.ai' style='color: white;'>Contact us</a>
+<div style='text-align: center; color: #6c757d; padding: 20px;'>
+    <p style='margin: 0;'>Made with ❤️ by TEQ3 | Transforming Careers Through AI Education</p>
+    <p style='margin: 5px 0 0 0;'>
+        <a href='https://www.teq3.ai' style='color: #667eea; text-decoration: none;'>Visit our website</a> | 
+        <a href='mailto:hello@teq3.ai' style='color: #667eea; text-decoration: none;'>Contact us</a>
     </p>
 </div>
 """, unsafe_allow_html=True)
