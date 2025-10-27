@@ -160,85 +160,40 @@ st.markdown("""
 
 # Helper functions
 def categorize_query(query):
-    """Categorize user queries for smart routing"""
+    """Categorize user queries for smart routing - only for consultant interest"""
     query_lower = query.lower()
     
-    technical_keywords = [
-        "payment", "purchase", "buying", "can't buy", "payment failed", 
-        "credit card", "billing", "refund", "login", "password", "access",
-        "platform", "website", "technical", "error", "bug", "not working",
-        "loading", "broken", "system", "account", "sign in", "log in", "can't access"
-    ]
-    
-    complaint_keywords = [
-        "complaint", "complain", "issue", "problem", "concern", "worried",
-        "dissatisfied", "disappointed", "frustrated", "unhappy", "feedback",
-        "poor", "bad", "terrible", "awful", "wrong", "mistake", "unsatisfied"
-    ]
-    
-    career_keywords = [
-        "which course", "what should i", "career change", "career transition",
-        "job prospects", "salary", "right for me", "help me choose", "confused",
-        "not sure", "advice", "recommend", "best option", "career path",
-        "switch to tech", "enrollment decision", "course selection", "ai career",
-        "data career", "job guarantee", "placement"
-    ]
-    
+    # Only route consultant interest queries - let LLM handle everything else
     consultant_keywords = [
-        "yes", "sure", "interested", "consultant", "career advisor", 
-        "speak to someone", "human", "person", "advisor", "guidance",
-        "help me decide", "connect me", "arrange", "schedule", "talk to",
-        "call me", "consultation"
+        "speak to someone", "talk to human", "human advisor", "real person",
+        "schedule call", "book consultation", "arrange meeting", "connect me with"
     ]
     
-    if any(keyword in query_lower for keyword in technical_keywords):
-        return "technical"
-    elif any(keyword in query_lower for keyword in complaint_keywords):
-        return "complaint"
-    elif any(keyword in query_lower for keyword in career_keywords):
-        return "career_guidance"
-    elif any(keyword in query_lower for keyword in consultant_keywords):
+    if any(keyword in query_lower for keyword in consultant_keywords):
         return "consultant_interest"
     else:
         return "general"
 
 def handle_technical_support():
-    """Provide technical support contact information"""
-    return """I understand you're experiencing a technical issue! 🛠️ Don't worry, our technical support team is here to help.
+    """Provide technical support as LAST RESORT only"""
+    return """If none of the solutions above worked, our technical support team is here to help:
 
-Our tech support can assist with:
-   • Payment and billing problems 💳
-   • Account access issues 🔐
-   • Platform technical difficulties 💻
-   • Purchase and enrollment problems 📝
+📧 Email: support@teq3.ai
+💬 Live Chat: Visit teq3.ai for instant support
+⏰ Response time: Usually within 2-4 hours
 
-Here's how to get help:
-   📧 Email: support@teq3.ai
-   📞 Phone: [Available on our website]
-   💬 Live Chat: Check teq3.ai for instant support
-   ⏰ Support Hours: We're here when you need us!
-
-For the fastest response, I'd recommend checking our website for live chat options. Is there anything else about your career goals I can help you with while you're here? 😊"""
+They'll be able to look into your specific account and resolve this quickly! 🛠️"""
 
 def handle_complaint():
-    """Handle complaints with appropriate routing"""
-    return """I'm really sorry to hear about your concern! 😔 Your feedback is super important to us, and I want to make sure you get the best possible help.
+    """Handle complaints with empathy and escalation"""
+    return """I'm truly sorry you're experiencing this issue. Your satisfaction is important to us.
 
-Let me connect you with the right team:
+For urgent concerns that need immediate attention:
+📧 careers@teq3.ai (for program/course concerns)
+📧 support@teq3.ai (for technical/billing issues)
+📧 hello@teq3.ai (for general feedback)
 
-🎯 **For course or program concerns:**
-   📧 careers@teq3.ai | 📞 [Career team number]
-   They're amazing at addressing program questions and providing personalized guidance!
-
-🔧 **For technical, billing, or platform issues:**
-   📧 support@teq3.ai | 📞 [Tech support number]
-   Our tech wizards can sort out any platform problems
-
-📋 **For general feedback or escalated concerns:**
-   📧 hello@teq3.ai | 📞 [Main contact number]
-   Direct line to our customer care team
-
-Would you like me to help you get connected with the most appropriate team? I'm here to make sure you get the support you deserve! 💪"""
+Our team will prioritize your concern and get back to you within 24 hours. 💪"""
 
 def handle_career_consultation():
     """Provide career consultation information"""
@@ -265,10 +220,9 @@ What specific area are you most interested in - AI, Data Analytics, or still exp
 def suggest_career_consultation():
     """Smart suggestion for career consultation"""
     suggestions = [
-        "Would you like to chat with one of our AI career consultants? They're amazing at helping people find their perfect tech path! 🚀",
-        "Our career consultants are like career GPS systems - they can guide you to exactly where you want to go in tech! Want me to connect you? 🗺️",
-        "Since this is such an exciting career decision, would you benefit from a personalized chat with our career experts? They love helping people like you! 💡",
-        "I can arrange a consultation with our career team - they're fantastic at turning career dreams into reality! Interested? ✨"
+        "Would you like to speak with one of our career consultants for personalized guidance? 🚀",
+        "Want to connect with our career team for a deeper dive into your options? 🗺️",
+        "Interested in a one-on-one consultation to create your personalized roadmap? 💡"
     ]
     return random.choice(suggestions)
 
@@ -477,18 +431,12 @@ if send_button and user_input:
     # Generate response
     if query_category == "consultant_interest":
         response = handle_career_consultation()
-    elif query_category == "technical":
-        response = handle_technical_support()
-    elif query_category == "complaint":
-        response = handle_complaint()
     else:
+        # Let the LLM handle everything - it's now trained to troubleshoot
         try:
             response = st.session_state.chain({"question": user_input})["answer"]
-            
-            if query_category == "career_guidance":
-                response += f"\n\n💡 {suggest_career_consultation()}\nJust say 'yes' or 'consultant' if you'd like personalized guidance!"
         except Exception as e:
-            response = f"Oops! 😅 I encountered a little hiccup. {handle_technical_support()}"
+            response = f"I encountered an error processing your request. Let me connect you with our support team who can help: {handle_technical_support()}"
     
     # Add assistant response
     st.session_state.messages.append({"role": "assistant", "content": response})
