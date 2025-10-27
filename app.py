@@ -442,9 +442,13 @@ with chat_container:
                 </div>
             """, unsafe_allow_html=True)
 
+# Initialize input key counter for clearing
+if 'input_key' not in st.session_state:
+    st.session_state.input_key = 0
+
 # Input area
 st.markdown("<br>", unsafe_allow_html=True)
-user_input = st.text_input("💭 Type your message here...", key="user_input", placeholder="Ask me about AI careers, courses, or career transitions...")
+user_input = st.text_input("💭 Type your message here...", key=f"user_input_{st.session_state.input_key}", placeholder="Ask me about AI careers, courses, or career transitions...")
 
 col1, col2, col3 = st.columns([1, 1, 4])
 
@@ -460,6 +464,7 @@ if clear_button:
         "role": "assistant",
         "content": "Hi there! 👋 I'm excited to help you with your AI or Data Analytics career journey. What brings you here today? 😊"
     })
+    st.session_state.input_key += 1
     st.rerun()
 
 if send_button and user_input:
@@ -487,6 +492,9 @@ if send_button and user_input:
     
     # Add assistant response
     st.session_state.messages.append({"role": "assistant", "content": response})
+    
+    # Increment key to clear input field
+    st.session_state.input_key += 1
     st.rerun()
 
 # Footer
