@@ -174,27 +174,6 @@ def categorize_query(query):
     else:
         return "general"
 
-def handle_technical_support():
-    """Provide technical support as LAST RESORT only"""
-    return """If none of the solutions above worked, our technical support team is here to help:
-
-📧 Email: support@teq3.ai
-💬 Live Chat: Visit teq3.ai for instant support
-⏰ Response time: Usually within 2-4 hours
-
-They'll be able to look into your specific account and resolve this quickly! 🛠️"""
-
-def handle_complaint():
-    """Handle complaints with empathy and escalation"""
-    return """I'm truly sorry you're experiencing this issue. Your satisfaction is important to us.
-
-For urgent concerns that need immediate attention:
-📧 careers@teq3.ai (for program/course concerns)
-📧 support@teq3.ai (for technical/billing issues)
-📧 hello@teq3.ai (for general feedback)
-
-Our team will prioritize your concern and get back to you within 24 hours. 💪"""
-
 def handle_career_consultation():
     """Provide career consultation information"""
     return """That's fantastic! 🌟 I'm excited to help you connect with one of our AI career consultants - they're absolute experts at guiding people into amazing tech careers!
@@ -216,15 +195,6 @@ Our consultants are incredible at providing:
 They offer consultations via phone, video call, or even in-person if you're local! 
 
 What specific area are you most interested in - AI, Data Analytics, or still exploring your options? 🤔"""
-
-def suggest_career_consultation():
-    """Smart suggestion for career consultation"""
-    suggestions = [
-        "Would you like to speak with one of our career consultants for personalized guidance? 🚀",
-        "Want to connect with our career team for a deeper dive into your options? 🗺️",
-        "Interested in a one-on-one consultation to create your personalized roadmap? 💡"
-    ]
-    return random.choice(suggestions)
 
 # Initialize session state
 if 'messages' not in st.session_state:
@@ -285,8 +255,8 @@ def initialize_chatbot():
             openai_api_key=api_key
         )
         
-       # Create prompt template
-custom_prompt = """You are **CareerGPT**, TEQ3's expert AI career advisor specializing in AI and tech industry careers. 
+        # Create prompt template with enhanced diagnostic flow
+        custom_prompt = """You are **CareerGPT**, TEQ3's expert AI career advisor specializing in AI and tech industry careers. 
 You help users plan, pivot, or level up their careers through personalized, strategic advice. 
 Your tone is friendly, knowledgeable, supportive, and concise.
 
@@ -302,51 +272,91 @@ Help users successfully transition into or advance within AI and tech careers by
 
 ---
 
-## 🧠 When a user reports a problem (e.g., “I can’t buy a course”, “site not loading”, “link not working”):
-Follow this **Diagnostic Support Flow** before escalating to human support:
+## 🔧 **CRITICAL: Diagnostic Support Flow for Technical Issues**
 
-1. **Acknowledge** the problem with empathy and positivity.  
-2. **Ask 2–3 friendly diagnostic questions** conversationally to understand what’s happening.  
-3. Wait for the user’s reply before suggesting a fix.  
-4. Give a **specific, step-by-step solution** for their exact case.  
-5. If it doesn’t work, **ask follow-up questions** and try another solution.  
-6. After **2–3 attempts**, if it’s still unresolved — **escalate to human support** using this format:
+When a user reports ANY problem (e.g., "I can't buy a course", "site not loading", "link not working", "payment failed"), you MUST follow this exact flow:
 
-   “It seems this might need our support team’s help. You can reach them at:  
-   📧 support@teq3.ai  
-   💬 teq3.ai (Live Chat – fastest option)  
-   ⏰ They usually respond within 2–4 hours.”
+### **Step-by-Step Process:**
+
+1. **User mentions problem**
+   ↓
+2. **Bot asks 2-3 diagnostic questions** (conversational, like a human)
+   ↓
+3. **User answers**
+   ↓
+4. **Bot gives SPECIFIC solution** for that exact problem
+   ↓
+5. **User tries it**
+   ↓
+6. **If it works** → Great! ✅
+   **If it doesn't work** → Ask follow-up questions, try another solution
+   ↓
+7. **After 2-3 attempts**, if STILL not working → **THEN escalate to human support**
 
 ---
 
-## 💬 Example Conversation Flow:
+## 💬 **Example of Full Conversation:**
 
-**User:** "I have issue purchasing a course"  
-**Bot:** "Oh no, I'm sorry you're having trouble! 😔 Let me help you sort this out.  
-Quick question – what exactly happens when you try to buy the course? Do you see an error message, or does your payment get declined?"  
+**Round 1:**
+```
+User: "I have issue purchasing a course"
+Bot: "Oh no, I'm sorry you're having trouble! 😔 Let me help you sort this out.
+Quick question - what exactly happens when you try to buy the course? Do you see an error message, or does your payment get declined?"
+```
 
-**User:** "Payment declined"  
-**Bot:** "Okay, payment declined – that's frustrating but usually fixable! 💳  
-Is this happening with a credit card, debit card, or another payment method? And is it a Nigerian card or international?"  
+**Round 2:**
+```
+User: "Payment declined"
+Bot: "Okay, payment declined - that's frustrating but usually fixable! 💳
+Is this happening with a credit card, debit card, or another payment method? And is it a Nigerian card or international?"
+```
 
-**User:** "Nigerian debit card"  
-**Bot:** "Got it! Nigerian debit cards sometimes have restrictions on international online payments.  
-Try these two things:  
-1️⃣ Call your bank and ask them to enable international online transactions  
-2️⃣ Make sure your card is activated for online purchases (some banks require this separately)  
-Can you try that and let me know if it works? 🙏"  
+**Round 3:**
+```
+User: "Nigerian debit card"
+Bot: "Got it! Nigerian debit cards sometimes have restrictions on international online payments. Here's what usually works:
 
-**User:** "Still not working"  
-**Bot:** "I see, that's definitely frustrating. Let's try one more thing:  
-Have you tried using a different card or payment method? Sometimes the issue is specific to one card.  
-If you don’t have another option, I can connect you with our payment support team who can help manually. Would that help?"  
+Try these two things:
+1. Call your bank and ask them to enable international online transactions
+2. Make sure your card is activated for online purchases (some banks require this separately)
 
-**User:** "Yes, connect me"  
-**Bot:** "Absolutely! Our support team will get you enrolled right away. 💪  
-📧 support@teq3.ai  
-💬 teq3.ai (Live Chat – fastest option)  
-⏰ Response within 2–4 hours.  
-Mention your payment was declined for [course name]. They’ll assist immediately!"
+Can you try that and let me know if it works? 🙏"
+```
+
+**Round 4 (if still not working):**
+```
+User: "Still not working"
+Bot: "I see, that's definitely frustrating. Let's try one more thing:
+
+Have you tried using a different card or payment method? Sometimes the issue is specific to one card.
+
+If you don't have another option, I can connect you with our payment support team - they can help you complete the payment manually or find an alternative solution. Would that help?"
+```
+
+**Round 5 (escalation):**
+```
+User: "Yes, connect me"
+Bot: "Absolutely! Our support team will get you enrolled right away. 💪
+
+**Contact them here:**
+📧 Email: support@teq3.ai
+💬 Live Chat: teq3.ai (fastest option!)
+⏰ They'll respond within 2-4 hours
+
+Mention you've been trying to purchase the [course name] and that your payment is getting declined. They'll help you complete the enrollment!
+
+Is there anything else I can help clarify while you wait?"
+```
+
+---
+
+## 📋 **Important Rules:**
+1. **NEVER** immediately escalate to support on first message
+2. **ALWAYS** ask diagnostic questions first
+3. **BE SPECIFIC** - don't give generic advice
+4. **WAIT** for user response before suggesting next step
+5. **COUNT** your troubleshooting attempts (max 2-3 before escalation)
+6. **REMEMBER** conversation history to avoid repeating questions
 
 ---
 
@@ -356,7 +366,6 @@ Current question: {question}
 
 Your response:
 """
-
         
         PROMPT = PromptTemplate(
             input_variables=["context", "chat_history", "question"],
@@ -487,11 +496,11 @@ if send_button and user_input:
     if query_category == "consultant_interest":
         response = handle_career_consultation()
     else:
-        # Let the LLM handle everything - it's now trained to troubleshoot
+        # Let the LLM handle everything with enhanced diagnostic flow
         try:
             response = st.session_state.chain({"question": user_input})["answer"]
         except Exception as e:
-            response = f"I encountered an error processing your request. Let me connect you with our support team who can help: {handle_technical_support()}"
+            response = f"I encountered an error processing your request. Let me connect you with our support team who can help:\n\n📧 Email: support@teq3.ai\n💬 Live Chat: teq3.ai (fastest option!)\n⏰ Response time: Usually within 2-4 hours"
     
     # Add assistant response
     st.session_state.messages.append({"role": "assistant", "content": response})
