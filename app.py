@@ -12,7 +12,7 @@ import random
 
 # Page configuration
 st.set_page_config(
-    page_title="CareerGPT by TEQ3",
+    page_title="TEQ3AI",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -472,7 +472,7 @@ Your response (3-5 paragraphs max, conversational, warm, and friendly):
 # Header
 st.markdown("""
     <div class="main-header">
-        <h1>🤖 CareerGPT by TEQ3</h1>
+        <h1>🤖 TEQ3AI</h1>
         <p>Your AI-Powered Career Advisor for Tech Success</p>
     </div>
 """, unsafe_allow_html=True)
@@ -531,7 +531,7 @@ with chat_container:
         else:
             st.markdown(f"""
                 <div class="bot-message">
-                    <strong>CareerGPT:</strong> {message["content"]}
+                    <strong>TEQ3AI:</strong> {message["content"]}
                 </div>
             """, unsafe_allow_html=True)
 
@@ -541,14 +541,23 @@ if 'input_key' not in st.session_state:
 
 # Input area
 st.markdown("<br>", unsafe_allow_html=True)
-user_input = st.text_input("💭 Type your message here...", key=f"user_input_{st.session_state.input_key}", placeholder="Ask me about AI careers, courses, or career transitions...")
 
-col1, col2, col3 = st.columns([1, 1, 4])
+# Create a form to enable Enter key submission
+with st.form(key='message_form', clear_on_submit=True):
+    user_input = st.text_input("💭 Type your message here...", key=f"user_input_{st.session_state.input_key}", placeholder="Ask me about AI careers, courses, or career transitions...")
+    
+    col1, col2, col3 = st.columns([1, 1, 4])
+    
+    with col1:
+        send_button = st.form_submit_button("Send 📤", use_container_width=True)
+    
+    with col2:
+        # Clear button outside form since it needs different behavior
+        pass
 
-with col1:
-    send_button = st.button("Send 📤", use_container_width=True)
-
-with col2:
+# Clear button outside the form
+col1_clear, col2_clear, col3_clear = st.columns([1, 1, 4])
+with col2_clear:
     clear_button = st.button("Clear Chat 🗑️", use_container_width=True)
 
 if clear_button:
