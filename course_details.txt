@@ -1,0 +1,391 @@
+Career Path Programs and Course under each career program
+Career Path: AI Engineer
+Introduction to AI and Prompt Engineering
+Introduction to Python and Feature Engineering
+Machine Learning with Python
+Introduction to Deep Learning & Neural Networks with Keras and Tensorflow
+Generative AI and LLMs: Architecture and Data Preparation
+Gen AI Foundational Models for NLP & Language Understanding
+Generative AI Language Modeling with Transformers
+Fundamentals of AI Agents Using RAG and LangChain
+Data Engineering for AI Engineers
+AI Deployment with Cloud & DevOps
+Al Ethics, Security & Governance
+
+Career Path: AI Product Manager
+Foundations of AI & Machine Learning 
+Product Management Fundamentals 
+Designing for AI Products 
+AI Strategy, Ethics & Responsible AI 
+Business Case Development & Stakeholder Engagement 
+Agile Delivery, MLOps & Product Lifecycle 
+Data Literacy for AI Product Mangers
+
+Career Path: AI GRC Analyst
+Foundations of AI & Machine Learning
+AI Ethics, Bias & Fairness
+AI Risk Management & Governance Frameworks 
+Regulatory Landscape: EU AI Act, GDPR & Global Standards
+AI Assurance, Audits & Controls
+Building Internal AI Governance Programs
+
+Career Path: Data Engineer
+DataBase Management and Querying with SQL Server
+Introduction to Programming with Python
+Fundamentals of Data Engineering
+Introduction to NoSQL
+Dimensional Modeling and Data Warehousing Fundamentals
+Implementation of a Data Warehouse (DE) 
+Data Processing with Apache Spark 
+Data processing with Apache Kafka 
+Workflow Automation with Airflow
+Introduction to DevOps Practice
+Version Control and CI/CD Pipeline
+Data Visualization and Reporting with Microsoft Power BI
+Decision Analytics
+
+
+Every AI Courses 
+Track 	Course 
+Career Acceleration & Employability	CV Optimisation
+	LinkedIn Optimisation
+	CV and LinkedIn Optimisation
+	Interview Mastery
+	AI for Career Growth
+	
+AI Foundations & Awareness	AI Literacy (AI for Everyone)
+	AI in your Industry
+	Generative AI for daily Productivity
+	Master Prompt Engineering
+	AI Strategy, Ethics & Responsible AI 
+	Ethical AI for Decision-Makers
+	
+Practical AI 	AI for Data Analysis
+	AI for Website creation 
+	AI for Documents creation 
+	AI for Presentation Slides Creation
+	AI for Image creation 
+	AI for Video Creation 
+	
+AI Agents and Automation	AI Agents for Everyone
+	AI Agents at Home 
+	Build Your First AI Agent
+	AI Agents for Knowledge Work
+	AI Agents for Customer Engagement
+	AI Agents for Business Operations
+	AI Agents for Sales & Marketing
+	AI Agents for Data Analysis
+	AI Agent Strategy, Governance & the Future of Work
+	Build  AI Agent Systems
+	Deploying AI Agents in the Enterprise
+	
+	
+AI in Business	AI for Entrepreneurs: How to start and grow with AI
+	AI for Managers: Leading with AI-powered teams
+	AI for Business Leaders
+	AI for Marketing & Sales
+	AI for HR & Talent Management 
+	AI for Finance Professionals
+	AI for Customer Service 
+	AI Productivity Toolkit for Teams 
+	AI for Product Innovation 
+	AI for SMEs & Startups 
+	AI & Data-Driven Decision Making
+	Responsible AI in Business
+	AI for Operations & Supply Chain
+	AI Strategy & Future of Work
+	
+Finance & Accounting	AI for Financial Forecasting
+	AI for Fraud Detection 
+	AI in Risk Modeling & Credit Scoring
+	NLP for Financial Data
+	Regulatory Compliance & AI Ethics
+	Robotic Process Automation (RPA) in Finance
+	AI for Financial Forecasting & Risk Management
+	AI for Compliance & Regulatory Monitoring
+	
+Retail	Recommendation Systems
+	AI in Inventory & Demand Forecasting
+	Computer Vision in Retail
+	
+Marketing	Predictive Analytics for Campaigns
+	NLP for Social Listening & Sentiment Analysis
+	Generative AI in Marketing
+	AI-Powered Ad Targeting & Optimization
+	
+Sales and Marketing 	AI for Lead Scoring & Predictive Analytics
+	Customer Segmentation & Personalization with AI
+	AI-Powered Content Marketing Automation
+	Building AI Chatbots for Customer Engagement
+	Dynamic Pricing Optimization Using AI
+	
+Customer Service	Automating Customer Support with AI
+	Sentiment Analysis for Customer Feedback
+	AI-Driven Virtual Assistants for Customer Service
+	
+	
+	
+	
+	
+Human Resources (HR)	AI-Powered Recruitment & Talent Acquisition
+	Personalized Employee Training with AI
+	AI for Employee Engagement & Retention
+	Workforce Planning & Scheduling with AI
+	
+Operations & Supply Chain	AI for Predictive Maintenance in Operations
+	Optimizing Logistics with AI
+	Inventory Management Optimization Using AI
+	AI-Driven Demand Forecasting for Supply Chains
+	
+Product Development & Innovation	AI for Product Design & Prototyping
+	Market Research & Consumer Insights with AI
+	AI for Product Testing & Quality Assurance
+	
+Legal and Compliance	AI for Contract Review & Risk Assessment
+	Regulatory Compliance Automation with AI
+	Document Management & Discovery with AI in Legal
+	
+Security	AI for Threat Detection & Prevention
+	AI-Powered Incident Response Systems
+	AI for Network Optimization & Defense
+	
+Business Decisons	AI for Data-Driven Strategic Decision-Making
+	Business Forecasting & Scenario Planning with AI
+	AI for Competitive Intelligence & Market Analysis
+
+ 
+ Brief Explanation of some of the EveryAI Courses
+Track: AI Foundations & Awareness 
+ 
+AI Literacy: Understanding and Using AI in Everyday Work & Life 
+ 
+This one-day masterclass makes AI simple and practical for everyone. Learn what AI really is, where it’s used, and how it can help you at work. Try AI tools hands-on, explore real-world use cases, and build confidence to use AI responsibly in your daily life and career. 
+ 
+AI in Your Industry: Practical Applications & Future Trends 
+See how AI is reshaping your sector through real-world case studies and hands-on practice. This course explores current industry use cases, adoption challenges, and emerging trends — giving you the skills and insights to apply AI in your workplace. 
+ 
+Work Smarter with Generative AI: Boosting Productivity Every Day 
+Unlock the power of AI tools like ChatGPT, Microsoft Copilot, and Notion AI to save time and improve your work. This hands-on course shows you how to use AI for emails, reports, presentations, and daily tasks — giving you practical workflows to boost efficiency immediately. 
+ 
+Master Prompt Engineering: Unlock the Full Power of AI Tools 
+Learn how to craft effective prompts that deliver accurate, creative, and consistent results from AI tools like ChatGPT and MidJourney. This hands-on course covers prompting techniques, templates, and advanced workflows — equipping you to get the best out of AI in your work. 
+ 
+Responsible AI: Building Strategy, Trust & Ethical Adoption 
+AI can transform businesses — but only if used responsibly. This course equips leaders and professionals with the tools to build an AI adoption strategy grounded in ethics, compliance, and trust. Learn governance frameworks, explore case studies, and create a Responsible AI Charter for your organization. 
+ 
+Ethical AI for Leaders: Making Responsible Decisions in the Age of AI 
+AI decisions at the top can shape the future of organizations and society. This course equips executives and policymakers with the tools to evaluate AI initiatives, manage risks, and lead responsibly. Explore global regulations, case studies, and governance models to ensure your AI strategy aligns with both innovation and ethics. 
+ 
+ 
+Track: AI for Career Acceleration & Employability 
+ 
+AI-Powered CV Makeover Masterclass 
+Transform your CV in one day — and land the opportunities you deserve. 
+Is your CV getting lost in the pile? In this interactive one-day masterclass, you’ll learn how to craft an achievement-driven CV that stands out to recruiters and passes Applicant Tracking Systems (ATS). With the power of AI tools like ChatGPT and Jobscan, you’ll refine your content, tailor it to specific roles, and polish your format for maximum impact. Walk away with a job-ready CV, actionable strategies for future updates, and the confidence to put your best professional self forward. 
+ 
+LinkedIn Mastery: Optimise Your Profile in One Day 
+Turn your LinkedIn into a career magnet. 
+Your LinkedIn profile is your digital first impression — is it working for you? In this interactive masterclass, you’ll learn how to optimise your profile to stand out to recruiters, build credibility, and grow your professional network. With AI-powered strategies, you’ll craft compelling headlines and summaries, showcase your achievements, and design a content plan that positions you as a thought leader. Walk away with a polished LinkedIn profile and a clear action plan to attract opportunities. 
+Interview Mastery: Ace Any Interview in One Day 
+Build confidence. Master your answers. Land the job. 
+Nervous about interviews? This one-day masterclass equips you with the tools and confidence to excel in any interview setting — virtual, panel, or in-person. You’ll learn how to craft compelling answers using the STAR method, practice with AI-powered interview tools, and handle tough questions with ease. With live mock interviews, structured feedback, and a personal action plan, you’ll walk away ready to impress recruiters and land your dream role. 
+ 
+AI-Powered Career Branding: CV & LinkedIn Optimisation Masterclass 
+Make your first impression unforgettable. 
+In this one-day masterclass, you’ll transform your CV and LinkedIn profile into powerful career tools. Learn how to optimise content for ATS, craft achievement-driven CV entries, and create a LinkedIn profile that attracts recruiters. With the help of AI tools, peer feedback, and expert guidance, you’ll leave with a polished professional brand ready to unlock new opportunities. 
+ 
+AI for Career Growth: Smart Tools to Accelerate Your Professional Journey 
+Take control of your career with the power of AI. 
+In this one-day masterclass, you’ll learn how to use AI to explore new opportunities, close skill gaps, and build a strong personal brand. From optimising your CV and LinkedIn profile to designing personalised upskilling roadmaps and creating thought-leadership content, you’ll walk away with a practical AI toolkit for career success. 
+ 
+ 
+Track: Practical AI 
+ 
+AI for Data Analysis: Turn Raw Data into Actionable Insights 
+Learn how to use AI tools like ChatGPT, Gemini, and Copilot to clean, analyze, and visualize data — no coding required. In this hands-on course, you’ll practice turning raw datasets into insights and reports that support smarter business decisions. 
+ 
+AI for Website Creation: Build Beautiful Sites in Hours, Not Weeks 
+In this practical masterclass, you’ll learn how to use AI-powered website builders to design, write, and publish a professional site — even with zero coding skills. Hands-on exercises will guide you through creating layouts, generating content, and launching your first AI-built website. 
+ 
+AI for Document Creation: From Draft to Polished Report in Minutes 
+This hands-on course teaches you how to use AI tools to draft, edit, and format professional documents — from business proposals and policies to academic reports. Learn how to save time, improve quality, and create polished, accurate documents with ease. 
+ 
+AI for Presentation Slides: Design Stunning Decks in Minutes 
+Learn how to use AI-powered tools to generate, design, and refine professional presentations in record time. This practical course shows you how to create pitch decks, business reports, and training slides with AI — combining speed, creativity, and storytelling for maximum impact. 
+ 
+AI for Image Creation: From Prompts to Professional Visuals 
+Unlock your creativity with AI-powered image tools like MidJourney, DALL·E, and Stable Diffusion. In this hands-on course, you’ll learn to generate, refine, and customize stunning visuals for marketing, branding, and creative projects — no design skills required. 
+ 
+AI for Video Creation: Produce Professional Videos Without a Studio 
+Discover how to make professional-quality videos with AI — no cameras, studios, or editing expertise needed. In this interactive course, you’ll learn to generate explainer videos, edit content, and produce branded clips using AI tools like Runway, Synthesia, and Pika Labs. 
+ 
+Track: AI Agents & Automation 
+AI Agents for Everyone: Mastering the Next Wave of Intelligent Automation 
+Duration: 1 Day (6 Hours) | 
+AI Agents are the next evolution of artificial intelligence — capable of performing tasks, making decisions, and transforming how we live and work. This practical, beginner-friendly masterclass introduces you to AI Agents, their real-world applications, and hands-on experience with no-code tools to build your own simple agent. 
+What You’ll Learn: 
+•	What AI Agents are and why they matter 
+•	Everyday and business applications of AI Agents 
+•	How to interact effectively with agents 
+•	Hands-on experience with agent-building tools 
+•	Building and testing your first AI Agent 
+•	Opportunities, risks, and the future of agents 
+Who Should Attend: 
+•	Professionals curious about AI’s next big leap 
+•	Students and job seekers preparing for the AI-powered workplace 
+•	Small business owners exploring automation 
+•	Anyone interested in applying AI to everyday tasks 
+By the end of the day, you’ll walk away with a working AI Agent and the confidence to explore how these digital co-pilots can empower your career and personal life. 
+ 
+AI Agents at Home: Smarter Living with AI 
+Duration: 1 day (6 hours) 
+Make everyday life simpler and smarter. This practical, beginner-friendly masterclass shows how AI agents can handle chores, manage schedules, support learning, and enhance wellness — all while keeping your data and privacy in mind. You’ll see live demos, learn how to connect agents to consumer apps and smart devices, and build a working personal agent during the hands-on lab. 
+Who should attend: busy professionals, parents, students, tech enthusiasts, and anyone curious about smart living. 
+What you’ll gain: 
+•	Clear understanding of home & personal AI agent use cases. 
+•	Practical skills to set up agents for scheduling, shopping, finance, and wellness. 
+•	Hands-on experience building and testing a simple personal agent. 
+•	Best practices for privacy, safety, and responsible use. 
+Walk away with a working agent and a simple personal AI plan you can use immediately. 
+ 
+Build Your First AI Agent: From Zero to Launch in One Day 
+Duration: 1 Day (6 Hours) 
+Ready to go beyond ChatGPT and create your own AI Agent? This hands-on masterclass gives you the tools and guidance to design, build, and deploy your very first AI Agent — all without writing a single line of code. 
+What you’ll learn: 
+•	Core components of AI Agents (how they work). 
+•	The best no-code tools for building agents. 
+•	Designing agents for real use cases (productivity, research, operations). 
+•	Step-by-step live build of your first agent. 
+•	How to customize, test, and deploy your agent for everyday use. 
+Who should attend: professionals, small business owners, students, and anyone ready to turn AI from theory into practice. 
+By the end of the day, you’ll walk away with a working AI Agent you built yourself — and the confidence to start creating more powerful agents in the future. 
+ 
+AI Agents for Knowledge Work: Automating Research, Analysis & Creation 
+Duration: 1 Day (6 hrs 45 mins) 
+Analysts, consultants, researchers, writers, and strategists spend hours managing information. This hands-on masterclass shows how AI Agents can automate research, writing, and analysis to save time and boost productivity. You’ll build your own knowledge-focused AI Agent and learn how to integrate it into your workflow. 
+What you’ll learn: 
+•	How AI Agents transform research, writing, and analysis. 
+•	Practical applications in reports, strategy, and content. 
+•	Step-by-step lab: build a research or writing agent. 
+•	How to integrate AI Agents with your favorite workplace tools. 
+•	The future of knowledge work and how to prepare. 
+Walk away with a working AI Agent and strategies to stay competitive in an AI-powered workplace. 
+ 
+ 
+AI Agents for Customer Experience: Transforming Support & Service 
+Deliver faster, smarter, and more empathetic customer service with AI Agents. In this one-day hands-on masterclass, you’ll learn how to design, deploy, and manage AI-driven agents that elevate customer experience. From service automation to personalization and trust, discover how to integrate AI into your CX strategy and walk away with practical tools to make your customer interactions future-ready. 
+ 
+AI Agents for Sales & Marketing: Driving Growth with Intelligent Automation 
+Discover how AI Agents can supercharge your sales and marketing efforts. In this one-day masterclass, you’ll learn how to use AI to generate leads, personalize campaigns, qualify prospects, and empower your sales team with real-time insights. With hands-on demos and practical strategies, you’ll leave with an action plan to embed AI into your growth engine and scale smarter, not harder. 
+ 
+ 
+AI Agents for Business Operations: Automating Workflows & Driving Efficiency 
+Want to cut costs and save hours of manual work? This one-day masterclass shows you how to design and deploy AI Agents that automate business processes across HR, finance, supply chain, and operations. Through case studies, live demos, and hands-on design, you’ll learn to streamline workflows, reduce errors, and free up teams for higher-value tasks. Walk away with an action plan to make AI work for your business operations. 
+ 
+Build AI Agent Systems: From Single Agents to Intelligent Workflows 
+Go beyond building individual AI Agents and learn how to connect them into intelligent, multi-agent systems. In this advanced one-day masterclass, you’ll design, orchestrate, and deploy agents that collaborate across workflows — from customer onboarding to product development. Through practical demos and frameworks, you’ll leave with the skills to scale AI beyond one-off agents and build the foundation for enterprise-grade automation. 
+ 
+Deploying AI Agents in the Enterprise 
+AI agents are reshaping how enterprises operate — but scaling them requires strategy, governance, and integration. This course equips leaders and IT teams with the frameworks to deploy AI agents securely, ethically, and effectively across the organization. Learn how to identify the right use cases, manage risks, and build a roadmap for sustainable adoption. 
+Deploying AI Agents in the Enterprise 
+Learn how to scale AI agents across your organization with confidence. This course combines strategic frameworks with a hands-on enterprise simulation, guiding you through governance, compliance, and system integration. By the end, you’ll have designed a mock deployment plan that shows how AI agents can transform workflows in your enterprise. 
+ 
+AI Agents for Data Analysis: From Raw Data to Smart Insights 
+Discover how to supercharge your data workflows with AI agents. In this hands-on one-day masterclass, you’ll build your own AI data assistant, automate repetitive tasks, and explore real-world use cases across industries — while learning best practices for accuracy, governance, and scaling. 
+ 
+Leading with AI Agents: Strategy, Governance & the Future of Work 
+This one-day executive masterclass equips leaders with the frameworks to adopt AI agents responsibly and strategically. Explore governance and compliance, risk management, and workforce transformation — and leave with a high-level roadmap for unlocking value from AI agents while safeguarding trust and people. 
+ 
+ 
+Track: AI in Business 
+ 
+AI for Business Leaders: Strategy, Adoption & Impact 
+ 
+Lead with confidence in the age of AI. 
+ 
+This one-day masterclass is designed for executives and decision-makers who want to harness AI for competitive advantage. You’ll learn how to identify high-value use cases, evaluate adoption strategies, and manage risks and ethics. With practical frameworks and real-world case studies, you’ll leave with an actionable roadmap to lead AI initiatives in your organisation. 
+ 
+AI for Marketing & Sales: Smarter Strategies for Growth 
+ 
+Boost customer engagement, personalise at scale, and drive conversions with AI. 
+ 
+In this one-day masterclass, you’ll learn how AI is transforming marketing and sales. Discover how to use AI tools to create personalised campaigns, predict customer needs, optimise sales pipelines, and generate higher ROI. With case studies, tool demos, and hands-on exercises, you’ll walk away with practical strategies to supercharge growth in your organisation. 
+ 
+AI for HR & Talent Management: Smarter People Strategies 
+ 
+Transform how you attract, develop, and engage talent with AI. 
+ 
+In this one-day masterclass, you’ll explore how AI is reshaping HR — from recruitment and onboarding to engagement and performance management. Learn how to use AI for smarter hiring, personalised learning, and predictive workforce insights, while managing ethical and legal risks. Walk away with practical tools and a roadmap to future-proof your HR function. 
+ 
+AI in Finance: Smarter Decisions, Faster Insights 
+ 
+Harness AI to transform financial analysis, forecasting, and risk management. 
+ 
+This one-day masterclass equips finance professionals with practical skills to apply AI across forecasting, reporting, risk management, and compliance. You’ll explore case studies, see live tool demonstrations, and develop a practical roadmap for AI adoption in finance. Walk away ready to boost efficiency, accuracy, and decision-making in your finance function. 
+ 
+AI in Customer Service: Automating Support, Enhancing Experience 
+ 
+Deliver faster, smarter, and more personalised customer experiences with AI. 
+ 
+This one-day masterclass shows how AI is reshaping customer support with chatbots, sentiment analysis, and predictive service. You’ll explore real-world case studies, see live tool demos, and learn how to integrate AI into omnichannel service strategies. Walk away with practical insights and a clear roadmap for delivering better customer experiences with AI. 
+ 
+AI Productivity Toolkit: Supercharge Your Team’s Workflow 
+ 
+Practical tools and workflows to boost productivity with AI. 
+ 
+In this one-day hands-on masterclass, your team will learn how to use AI to draft reports, summarise research, manage projects, create presentations, and more. With guided workflow labs and tool demos, participants will leave with a tailored AI playbook that delivers immediate efficiency gains in daily work. 
+ 
+AI for Product Innovation: From Ideas to Prototypes 
+ 
+Leverage AI tools to accelerate ideation, design, and go-to-market. 
+ 
+This one-day masterclass gives product teams hands-on experience using AI for innovation. Learn how to generate ideas, conduct customer research, design prototypes, and create marketing assets — all powered by AI. By the end, participants will have built a mini prototype and go-to-market pitch with AI tools. 
+ 
+AI for SMEs & Startups: Growth on a Budget 
+ 
+Practical AI adoption strategies for small businesses and entrepreneurs. 
+ 
+This one-day masterclass equips SMEs and startups with budget-friendly AI tools and strategies to drive growth, improve operations, and stay competitive. Learn how to use AI for marketing, sales, productivity, and decision-making — and walk away with a custom AI adoption roadmap for your business. 
+ 
+AI & Data-Driven Decision Making: From Data to Insights 
+ 
+Leverage AI to transform raw data into smarter business decisions. 
+ 
+This one-day masterclass gives professionals the skills to turn data into actionable insights with AI. Learn how to frame the right questions, analyze and visualize data, forecast scenarios, and communicate insights effectively. Through case studies and hands-on exercises, you’ll build confidence in making AI-supported, evidence-based business decisions. 
+ 
+Responsible AI in Business: Ethics, Governance & Risk Management 
+ 
+Build trust and compliance while unlocking AI’s potential. 
+ 
+This one-day masterclass helps businesses adopt AI responsibly by tackling ethics, governance, and risk management. Learn how to manage bias, ensure transparency, comply with global regulations, and build trust with customers and stakeholders. Through practical frameworks and case studies, participants will leave with the tools to embed responsible AI into their organization. 
+ 
+AI for Operations & Supply Chain 
+ 
+Driving efficiency, resilience, and visibility with AI. 
+ 
+This one-day masterclass explores how AI can revolutionize supply chains and operations. Learn how to use AI for demand forecasting, inventory management, logistics optimization, and supplier risk management. Through case studies and hands-on exercises, participants will design an AI-powered supply chain roadmap tailored to their business. 
+ 
+AI Strategy & Future of Work 
+ 
+Shaping business strategy and workforce transformation in the age of AI. 
+ 
+This executive-level masterclass helps leaders understand how AI is reshaping business models and the workforce. Learn how to map industry opportunities, redesign jobs for human–AI collaboration, and build an AI-ready organization. Through executive labs and strategic frameworks, participants will leave with a practical roadmap for the future of work. 
+ 
+AI for Entrepreneurs: Start, Scale & Succeed with AI 
+ 
+Turn AI into your competitive advantage. 
+ 
+This one-day masterclass shows founders and entrepreneurs how to validate ideas, grow lean, and scale faster with AI. Learn how to use AI for customer research, marketing, product development, and operations — all without big budgets. Leave with a personalized AI adoption playbook for your startup journey. 
+ 
+AI for Managers: Leading High-Performance Teams in the Age of AI 
+ 
+Turn AI adoption into a leadership advantage. 
+ 
+This one-day program shows managers how to lead hybrid human+AI teams effectively. Learn how to identify workflow opportunities, manage change, and measure impact — while building trust and a culture of innovation. Walk away with a roadmap for your own team’s AI readiness. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
