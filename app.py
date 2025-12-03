@@ -8,6 +8,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
 from langchain.prompts import PromptTemplate
+from langchain.schema import Document
 import random
 
 # Page configuration
@@ -218,7 +219,7 @@ def initialize_chatbot():
         api_key = st.secrets["OPENAI_API_KEY"]
         os.environ["OPENAI_API_KEY"] = api_key
         
-        # Load documents
+        # Load website documents
         urls = [
             "https://www.teq3.ai/",
             "https://www.teq3.ai/about-us",
@@ -231,6 +232,8 @@ def initialize_chatbot():
         ]
         
         all_documents = []
+        
+        # Load website documents
         for url in urls:
             try:
                 loader = WebBaseLoader(url)
@@ -238,6 +241,23 @@ def initialize_chatbot():
                 all_documents.extend(documents)
             except Exception as e:
                 st.warning(f"Could not load {url}")
+        
+        # NEW: Load the additional course details document
+        try:
+            with open("course_details.txt", "r", encoding="utf-8") as f:
+                course_content = f.read()
+            
+            # Add it to the documents
+            course_doc = Document(
+                page_content=course_content, 
+                metadata={"source": "course_details"}
+            )
+            all_documents.append(course_doc)
+            st.success("✅ Course details loaded successfully!")
+        except FileNotFoundError:
+            st.warning("⚠️ Course details file not found. Using website data only.")
+        except Exception as e:
+            st.warning(f"⚠️ Could not load course details: {str(e)}")
         
         # Split documents
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -435,7 +455,7 @@ Is there anything else I can help clarify while you wait?"
 
 ---
 
-Context from TEQ3 website: {context}
+Context from TEQ3 website and course details: {context}
 Previous conversation: {chat_history}
 Current question: {question}
 
